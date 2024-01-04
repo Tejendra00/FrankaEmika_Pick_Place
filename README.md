@@ -82,7 +82,7 @@ Utilizing the Denavit-Hartenberg (DH) parameters to model the robot arm. Computi
 
 
 <p align="center">
-  <img src="imgs/DH_Parameters.png">
+  <img src="imgs/DH_Parameters.png" width="500">
 </p>
 
 ### 2. Jacobian and Velocity Forward 
