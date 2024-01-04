@@ -94,7 +94,7 @@ Using this Jacobian to determine the required joint velocities for desired end-e
 ### 3. Inverse Kinematics  (Numerical and Geometrical Method)
 
 <b>Process:</b>
-Developed algorithms that invert the FK process to solve for joint angles from a given end-effector pose using the numerical gradient descent method as well as geometrical IK. Addressing the complexity arising from the arm's multiple degrees of freedom and potential for multiple solutions. Below is the robot following the trajectory using Numerical IK.
+Developed algorithms that invert the FK process to solve for joint angles from a given end-effector pose using the numerical gradient descent method as well as geometrical IK. Addressing the complexity arising from the arm's multiple degrees of freedom and potential for multiple solutions. Below is the robot following the trajectory of ellipse using Numerical IK.
 
 <!-- ![FRANKAEMIKA_PICK_PLACE FK](imgs/ik.gif) -->
 <p align="center">
