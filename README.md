@@ -1,42 +1,34 @@
 <div align="center">
-<p align="center">
+<!-- <p align="center">
   <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-</p>
+</p> -->
 <p align="center">
     <h1 align="center">FrankaEmika_Pick_Place</h1>
 </p>
-
-<p align="center">
-	<img src="https://img.shields.io/github/license/Tejendra00/FrankaEmika_Pick_Place?style=standard" alt="license" >
-	<img src="https://img.shields.io/github/languages/top/Tejendra00/FrankaEmika_Pick_Place?style=standard" alt="repo-top-language">
-<p>
-<p align="center">
-	<!-- standard option, no dependency badges. -->
-</p>
 </div>
-<hr>
 
 ## Introduction
-
 This project represents an end to end pipeline for real-time 7 DOF robot to pick and place static and dynamic blocks using ROS and Gazebo framework. Developed motion planning using Geometric Inverse Kinematic and bi-directional RRT for tight and fast control.
 
-## Project Overview
-Objective: Develop a reliable and efficient pick-and-place system.
-Technologies Used: Franka Emika robotic arm, Python, custom algorithms for object detection and Inverse Kinematics.
 
-[![FRANKAEMIKA_PICK_PLACE Project Video](imgs/final.png)](http://www.youtube.com/watch?v=kSgi1wVt54U)
+### Objective:
+Develop a reliable and efficient pick-and-place system.
+### Technologies Used: 
+Franka Emika robotic arm, Python, custom algorithms for object detection and Inverse Kinematics.
 
 
+### Methodology 
+Custom Algorithms for Object Detection: Advanced algorithms developed to accurately detect and identify objects, enabling the robot to distinguish between different objects for pick-and-place tasks.
 
-## Features
-Object detection and manipulation for static and dynamic objects.
-Custom Inverse Kinematics for precise robot movements.
-Integration of simulation and real-world testing.
+Inverse Kinematics Algorithms: These algorithms calculate the necessary joint angles of the robot to achieve desired positions of the end-effector, crucial for precise manipulation of objects.
 
-## Methodology
-Static Block Strategy: Detailed design for precise block handling.
-Dynamic Block Strategy: 'Fishing' method for dynamic picking.
-Evaluation and Testing: Simulation and hardware testing for effectiveness validation.
+Bi-directional RRT (Rapidly-exploring Random Tree): Implemented for motion planning, this algorithm efficiently finds paths by growing trees from both start and goal configurations, ensuring fast and efficient navigation through complex spaces.
+
+Detailed explanation in Report.
+<p align="center">
+  <img src="imgs/final.gif">
+</p>
+<!-- ![FRANKAEMIKA_PICK_PLACE Project Video](imgs/final.gif) -->
 
 ##  Repository Structure
 
@@ -78,76 +70,51 @@ Evaluation and Testing: Simulation and hardware testing for effectiveness valida
 
 ---
 
-##  Modules
+##  Start to End Pipeline for Robotic Manipulator
+
+This pipeline outlines the systematic approach employed in the FRANKAEMIKA_PICK_PLACE project, covering every critical stage from Forward Kinematics to Path Planning. Each stage is crucial and combining all maked the 7DOF robot move as desired.
+
+### 1. Forward Kinemtaics
+
+<!-- <details closed><summary>Forward Kinematics</summary> -->
+<b>Process:</b>
+Utilizing the Denavit-Hartenberg (DH) parameters to model the robot arm. Computing the transformation matrices for each joint to derive the end-effector's position and orientation.
 
 
+<p align="center">
+  <img src="imgs/DH_Parameters.png">
+</p>
 
-<details closed><summary>labs.Path Planning</summary>
+### 2. Jacobian and Velocity Forward 
 
-| File                                                                                                                               | Summary                                                                   |
-| ---                                                                                                                                | ---                                                                       |
-| [potentialField_demo.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Path Planning/potentialField_demo.py) | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [rrt_demo.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Path Planning/rrt_demo.py)                       | Error generating summary: HTTPStatusError occurred. See logs for details. |
+<b>Process:</b>
+Calculating the Jacobian matrix, which maps differential changes in joint angles to spatial velocity of the end-effector.
+Using this Jacobian to determine the required joint velocities for desired end-effector velocities.
 
-</details>
+### 3. Inverse Kinematics  (Numerical and Geometrical Method)
 
-<details closed><summary>labs.Forward_Kinematics</summary>
+<b>Process:</b>
+Developed algorithms that invert the FK process to solve for joint angles from a given end-effector pose using the numerical gradient descent method as well as geometrical IK. Addressing the complexity arising from the arm's multiple degrees of freedom and potential for multiple solutions. Below is the robot following the trajectory using Numerical IK.
 
-| File                                                                                                                | Summary                                                                   |
-| ---                                                                                                                 | ---                                                                       |
-| [visualize.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Forward_Kinematics/visualize.py) | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [workspace.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Forward_Kinematics/workspace.py) | Error generating summary: HTTPStatusError occurred. See logs for details. |
+<!-- ![FRANKAEMIKA_PICK_PLACE FK](imgs/ik.gif) -->
+<p align="center">
+  <img src="imgs/ik.gif">
+</p>
 
-</details>
+### 4. Path Planning 
+<b>Process:</b>
+Employing algorithms like bi-directional RRT (Rapidly-exploring Random Trees) and Potential field for navigating complex environments. Consider factors such as obstacle avoidance, minimization of path length, and smoothness of the trajectory.
 
-<details closed><summary>labs.Jacobian_Velocity_FK</summary>
+<!-- ![FRANKAEMIKA_PICK_PLACE path](imgs/pathplanning.gif) -->
+<p align="center">
+  <img src="imgs/pathplanning.gif">
+</p>
 
-| File                                                                                                                  | Summary                                                                   |
-| ---                                                                                                                   | ---                                                                       |
-| [follow.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Jacobian_Velocity_FK/follow.py)       | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [visualize.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Jacobian_Velocity_FK/visualize.py) | Error generating summary: HTTPStatusError occurred. See logs for details. |
+Combining all this and extensive testing in hardware and software made it possible to do Pick and Place of static and dyanmic blocks using 7DOF Robotics Manipulator.
 
-</details>
+More technical detail can be found in report
 
-<details closed><summary>labs.Pick_Place_Final</summary>
 
-| File                                                                                                                | Summary                                                                   |
-| ---                                                                                                                 | ---                                                                       |
-| [Ik_new.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Pick_Place_Final/Ik_new.py)         | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [Final_Blue.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Pick_Place_Final/Final_Blue.py) | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [Final_Red.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Pick_Place_Final/Final_Red.py)   | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [translib.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Pick_Place_Final/translib.py)     | Error generating summary: HTTPStatusError occurred. See logs for details. |
-
-</details>
-
-<details closed><summary>labs.Inverse_Kinematics</summary>
-
-| File                                                                                                                | Summary                                                                   |
-| ---                                                                                                                 | ---                                                                       |
-| [follow.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Inverse_Kinematics/follow.py)       | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [visualize.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/labs/Inverse_Kinematics/visualize.py) | Error generating summary: HTTPStatusError occurred. See logs for details. |
-
-</details>
-
-<details closed><summary>lib</summary>
-
-| File                                                                                                                    | Summary                                                                   |
-| ---                                                                                                                     | ---                                                                       |
-| [FK_velocity.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/FK_velocity.py)                     | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [loadmap.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/loadmap.py)                             | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [Jacobian.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/Jacobian.py)                           | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [potentialFieldPlanner.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/potentialFieldPlanner.py) | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [inverseKinematics.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/inverseKinematics.py)         | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [IK_position_null.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/IK_position_null.py)           | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [IK_velocity_null.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/IK_velocity_null.py)           | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [forwardKinematics.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/forwardKinematics.py)         | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [calcAngDiff.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/calcAngDiff.py)                     | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [calcManipulability.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/calcManipulability.py)       | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [detectCollision.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/detectCollision.py)             | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [__init__](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/__init__)                                 | Error generating summary: HTTPStatusError occurred. See logs for details. |
-| [rrt.py](https://github.com/Tejendra00/FrankaEmika_Pick_Place/blob/main/lib/rrt.py)                                     | Error generating summary: HTTPStatusError occurred. See logs for details. |
-
-</details>
 ---
 
 ##  License
